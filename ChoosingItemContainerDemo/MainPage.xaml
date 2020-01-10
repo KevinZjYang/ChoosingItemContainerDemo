@@ -6,24 +6,24 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
     <Page.Resources>
         <DataTemplate x:Key="MaleTemplate"
-                      x:Name="template1"
                       x:DataType="local:Person">
-            <Grid Background="Azure">
-                <TextBlock Text="{x:Bind type}" />
-            </Grid>
+            <TextBlock Text="{x:Bind data.name}" />
         </DataTemplate>
         <DataTemplate x:Key="FemaleTemplate"
                       x:DataType="local:Person">
-            <Grid Background="Pink">
-                <TextBlock Text="{x:Bind type}" />
-            </Grid>
+            <TextBlock Text="{x:Bind data.name}" />
         </DataTemplate>
+        <local:TemplateSelector x:Key="TemplateSelector" />
+        <local:PersonDataTemplateSelector x:Key="PersonDataTemplateSelector" MaleTemplate="{StaticResource MaleTemplate}"
+                                          FemaleTemplate="{StaticResource FemaleTemplate}" />
     </Page.Resources>
     <Grid>
-        <ListView x:Name="listView"
-                  ItemsSource="{x:Bind People}">
+        <ListView x:Name="listView" ItemClick="listView_ItemClick"
+                  ItemsSource="{x:Bind People}"
+                  IsItemClickEnabled="True">
         </ListView>
     </Grid>
 </Page>
